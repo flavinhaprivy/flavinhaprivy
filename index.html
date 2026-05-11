@@ -3,78 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma Privada UMPIERRE</title>
-    <style>
-        :root {
-            --bg-deep: #0f172a;
-            --bg-card: #1e293b;
-            --primary: #38bdf8;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-        body { 
-            font-family: 'Segoe UI', system-ui, sans-serif; 
-            background-color: var(--bg-deep); 
-            color: var(--text-main); 
-            margin: 0; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh; 
-        }
-        .container { 
-            width: 100%;
-            max-width: 400px; 
-            padding: 40px; 
-            border: 1px solid #334155; 
-            border-radius: 16px; 
-            background: var(--bg-card); 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-        h1 { color: var(--primary); font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; }
-        p { color: var(--text-muted); margin-bottom: 25px; }
-        
-        .input-group { text-align: left; margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: var(--text-main); font-size: 0.9rem; }
-        input { 
-            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; 
-            background: #0f172a; color: white; box-sizing: border-box; outline: none;
-        }
-        input:focus { border-color: var(--primary); }
-
-        .cta-button { 
-            display: inline-block; padding: 16px 32px; background-color: var(--primary); 
-            color: var(--bg-deep); border-radius: 8px; font-weight: 800; border: none; 
-            cursor: pointer; width: 100%; font-size: 1rem; transition: all 0.3s;
-        }
-        .cta-button:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .cta-button:disabled { background-color: #64748b; cursor: not-allowed; transform: none; }
-        
-        footer { margin-top: 30px; font-size: 0.8rem; color: #64748b; }
-    </style>
-</head>
+    <title>Plataforma Umpierre - Nexus</title>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
-
     <div class="container">
-        <h1>PLATAFORMA UMPIERRE</h1>
-        <p>Acesso exclusivo aos sistemas Nexus e automações.</p>
-        
-        <div class="input-group">
-            <label for="email">E-mail para liberação do acesso:</label>
-            <input type="email" id="email" placeholder="seu@email.com" required>
-        </div>
-
-        <button id="btnAssinar" class="cta-button">ASSINAR AGORA</button>
-
-        <footer>
-            <p>&copy; <span id="year"></span> Eduardo Umpierre - Bagé/RS</p>
-        </footer>
+        <h1>Assinatura Nexus</h1>
+        <input type="email" id="email" placeholder="Seu melhor e-mail" required>
+        <button id="btnAssinar">ASSINAR AGORA</button>
     </div>
 
     <script src="app.js"></script>
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
 </body>
 </html>
