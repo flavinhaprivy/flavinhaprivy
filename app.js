@@ -1,9 +1,18 @@
 const btn = document.getElementById('btnAssinar');
 const emailInput = document.getElementById('email');
-const pixArea = document.getElementById('pixArea');
-const formArea = document.getElementById('formArea');
-const pixCodeInput = document.getElementById('pixCode');
-const btnCopy = document.getElementById('btnCopy');
+const planCards = document.querySelectorAll('.plan-card');
+let selectedPrice = "19.90"; // Padrão
+let selectedPlanName = "SEMANAL";
+
+// Lógica de seleção visual dos planos
+planCards.forEach(card => {
+    card.addEventListener('click', () => {
+        planCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        selectedPrice = card.getAttribute('data-price');
+        selectedPlanName = card.getAttribute('data-name');
+    });
+});
 
 const URL_WEBHOOK = 'https://flavinhaprivy.app.n8n.cloud/webhook-test/venda';
 
@@ -11,34 +20,29 @@ btn.addEventListener('click', async () => {
     const email = emailInput.value.trim();
     if (!email || !email.includes('@')) { alert("E-mail inválido."); return; }
     
-    btn.innerText = "PROCESSANDO...";
+    btn.innerText = "GERANDO PIX...";
     btn.disabled = true;
 
     try {
         const response = await fetch(URL_WEBHOOK, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email })
+            body: JSON.stringify({ 
+                email: email,
+                valor: selectedPrice,
+                plano: selectedPlanName
+            })
         });
         
         const res = await response.json();
         
-        // Verifica se o n8n retornou o código Pix (url_checkout)
         if (res.url_checkout) {
-            formArea.style.display = 'none';
-            pixArea.style.display = 'block';
-            pixCodeInput.value = res.url_checkout;
-            
+            document.getElementById('formArea').style.display = 'none';
+            document.getElementById('pixArea').style.display = 'block';
+            document.getElementById('pixCode').value = res.url_checkout;
             await navigator.clipboard.writeText(res.url_checkout);
-            alert("✅ PIX GERADO! O código foi copiado automaticamente.");
+            alert("Pix Copiado! Pague para receber o acesso ao grupo.");
         }
-    } catch (e) { alert("Erro de conexão com o servidor."); }
-    finally { btn.innerText = "GERAR PAGAMENTO PIX"; btn.disabled = false; }
-});
-
-btnCopy.addEventListener('click', () => {
-    pixCodeInput.select();
-    document.execCommand('copy');
-    btnCopy.innerText = "COPIADO!";
-    setTimeout(() => btnCopy.innerText = "COPIAR", 2000);
+    } catch (e) { alert("Erro de conexão."); }
+    finally { btn.innerText = "GERAR PIX DE ACESSO"; btn.disabled = false; }
 });
