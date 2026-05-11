@@ -2,8 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <title>Plataforma Umpierre | Acesso Premium</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,8 +17,8 @@
         <div class="glass-card">
             <header>
                 <div class="brand">UMPIERRE</div>
-                <h1>Desbloqueie seu Acesso Premium</h1>
-                <p>Entre para a elite da automação. Assine agora e receba seu acesso instantaneamente via Pix.</p>
+                <h1>Acesso Premium</h1>
+                <p>Entre para a elite da automação. Assine agora e receba o seu acesso instantaneamente via Pix.</p>
             </header>
 
             <section class="pricing">
@@ -30,23 +32,24 @@
             <section class="form-area" id="formArea">
                 <div class="input-group">
                     <label for="email">E-mail de Cadastro</label>
-                    <input type="email" id="email" placeholder="exemplo@email.com" required>
+                    <input type="email" id="email" placeholder="seu-email@exemplo.com" required>
                 </div>
                 <button id="btnAssinar">GERAR PAGAMENTO PIX</button>
             </section>
 
             <section class="pix-area" id="pixArea" style="display: none;">
-                <p class="pix-instruction">Copia e Cola gerado com sucesso!</p>
+                <p class="pix-instruction">✅ Código Pix gerado!</p>
                 <div class="pix-display">
-                    <input type="text" id="pixCode" readonly>
+                    <input type="text" id="pixCode" readonly aria-label="Código Pix Copia e Cola">
                     <button id="btnCopy">COPIAR</button>
                 </div>
-                <p class="pix-footer">Abra o app do seu banco e escolha "Pix Copia e Cola".</p>
+                <p class="pix-footer">Abra o app do seu banco e escolha a opção <strong>"Pix Copia e Cola"</strong>.</p>
             </section>
 
             <footer class="benefits">
-                <span>🛡️ Pagamento Seguro</span>
-                <span>⚡ Ativação Imediata</span>
+                <span>🛡️ Seguro</span>
+                <span>⚡ Instantâneo</span>
+                <span>📱 Mobile Ready</span>
             </footer>
         </div>
     </main>
