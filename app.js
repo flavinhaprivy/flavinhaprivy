@@ -1,7 +1,7 @@
 const btn = document.getElementById('btnAssinar');
 const emailInput = document.getElementById('email');
 
-// SUA NOVA URL DO N8N CLOUD
+// URL DO SEU N8N CLOUD (Ajustada conforme seu print)
 const URL_WEBHOOK = 'https://flavinhaprivy.app.n8n.cloud/webhook-test/venda';
 
 btn.addEventListener('click', async () => {
@@ -16,37 +16,33 @@ btn.addEventListener('click', async () => {
     btn.innerText = "PROCESSANDO...";
     btn.disabled = true;
 
-    const dadosVenda = {
-        produto: "Assinatura Nexus",
-        email: email,
-        origem: "Landing_Page",
-        data: new Date().toISOString()
-    };
-
     try {
         const response = await fetch(URL_WEBHOOK, {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             mode: 'cors', 
-            body: JSON.stringify(dadosVenda)
+            body: JSON.stringify({
+                produto: "Assinatura Nexus",
+                email: email
+            })
         });
 
-        // Como você configurou "When Last Node Finishes", o n8n vai esperar todo o fluxo
+        if (!response.ok) throw new Error("Erro na resposta do servidor.");
+
         const resultado = await response.json();
 
+        // O n8n precisa devolver a chave 'url_checkout'
         if (resultado.url_checkout) {
             window.location.href = resultado.url_checkout;
         } else {
-            console.error("Resposta do n8n:", resultado);
-            alert("Erro: O n8n não retornou o campo 'url_checkout'. Verifique o último nó do seu workflow.");
+            console.error("Dados recebidos:", resultado);
+            alert("Sucesso! Mas o n8n não enviou o link de checkout. Verifique o nó final.");
             resetBtn();
         }
 
     } catch (error) {
-        console.error("Erro na conexão:", error);
-        alert("Falha ao conectar com o n8n. Verifique se você clicou em 'Execute Workflow' antes de testar.");
+        console.error("Erro:", error);
+        alert("Não foi possível conectar. Verifique se o workflow no n8n está em modo de execução.");
         resetBtn();
     }
 });
