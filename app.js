@@ -1,20 +1,21 @@
 const btn = document.getElementById('btnAssinar');
 const emailInput = document.getElementById('email');
 
-// ATENÇÃO: Substitua pela URL atual gerada no seu Debian
+// URL ATUALIZADA DO SEU TUNEL LOCAL
 const URL_WEBHOOK = 'https://eight-cameras-lose.loca.lt/webhook/venda';
 
 btn.addEventListener('click', async () => {
-    const email = emailInput.value;
+    const email = emailInput.value.trim();
 
-    // Validação simples
+    // Validação básica de e-mail
     if (!email || !email.includes('@')) {
-        alert("Por favor, insira um e-mail válido.");
+        alert("Por favor, digite um e-mail válido para prosseguir.");
+        emailInput.focus();
         return;
     }
 
-    // Feedback visual
-    btn.innerText = "PROCESSANDO PAGAMENTO...";
+    // Feedback visual imediato
+    btn.innerText = "PROCESSANDO...";
     btn.disabled = true;
 
     const dadosVenda = {
@@ -29,28 +30,28 @@ btn.addEventListener('click', async () => {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                'Bypass-Tunnel-Reminder': 'true' 
+                'Bypass-Tunnel-Reminder': 'true' // Pula o aviso do localtunnel
             },
             mode: 'cors', 
             body: JSON.stringify(dadosVenda)
         });
 
-        if (!response.ok) throw new Error("Servidor offline ou erro no n8n.");
+        if (!response.ok) throw new Error("O n8n recebeu a chamada mas retornou um erro.");
 
         const resultado = await response.json();
 
-        // O n8n precisa retornar um JSON com a chave "url_checkout"
+        // O redirecionamento só acontece se o seu n8n retornar "url_checkout"
         if (resultado.url_checkout) {
             window.location.href = resultado.url_checkout;
         } else {
-            console.error("Resposta do servidor:", resultado);
-            alert("Erro: O servidor n8n não enviou o link de checkout.");
+            console.error("Resposta recebida:", resultado);
+            alert("Erro: O sistema não gerou o link de pagamento. Verifique o nó de resposta no n8n.");
             resetBtn();
         }
 
     } catch (error) {
-        console.error("Erro na conexão:", error);
-        alert("Não foi possível conectar ao Nexus. Verifique se o túnel no Debian está ativo.");
+        console.error("Erro na integração:", error);
+        alert("Falha na conexão com o servidor Nexus. Verifique se o terminal do Debian está aberto com o túnel ativo.");
         resetBtn();
     }
 });
