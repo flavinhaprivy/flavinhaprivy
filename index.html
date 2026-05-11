@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Privada UMPIERRE</title>
+    <style>
+        :root {
+            --bg-deep: #0f172a;
+            --bg-card: #1e293b;
+            --primary: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #ef4444;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-deep); color: var(--text-main); margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+        .container { max-width: 500px; padding: 40px; border: 1px solid #334155; border-radius: 16px; background: var(--bg-card); }
+        h1 { color: var(--primary); margin-bottom: 10px; }
+        p { color: var(--text-muted); margin-bottom: 30px; }
+        .cta-button { 
+            display: inline-block; padding: 16px 32px; background-color: var(--primary); color: var(--bg-deep); 
+            text-decoration: none; border-radius: 8px; font-weight: 800; border: none; cursor: pointer; width: 100%; font-size: 1.1rem; 
+        }
+        .cta-button:disabled { background-color: #475569; cursor: wait; }
+        footer { margin-top: 40px; font-size: 0.8rem; color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PLATAFORMA UMPIERRE</h1>
+        <p>Acesso exclusivo aos sistemas Nexus e automações.</p>
+        
+        <button id="btnAssinar" class="cta-button">ASSINAR AGORA</button>
+
+        <footer>
+            <p>&copy; <span id="year"></span> Eduardo Umpierre</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const btn = document.getElementById('btnAssinar');
+
+        btn.addEventListener('click', async () => {
+            // 1. Feedback visual
+            btn.innerText = "GERANDO PAGAMENTO...";
+            btn.disabled = true;
+
+            try {
+                // 2. Chama o seu Nexus/n8n no Debian
+                // COLOQUE O SEU IP ABAIXO:
+                const response = await fetch('http://SEU-IP-AQUI:5678/webhook/venda', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        produto: "Assinatura Nexus",
+                        origem: "Landing Page"
+                    })
+                });
+
+                const dados = await response.json();
+
+                // 3. Se o n8n retornar a URL do Checkout, redireciona
+                if (dados.url_checkout) {
+                    window.location.href = dados.url_checkout;
+                } else {
+                    alert("Erro ao gerar checkout. Verifique o fluxo no n8n.");
+                    resetBtn();
+                }
+
+            } catch (error) {
+                console.error("Erro na conexão:", error);
+                alert("Não foi possível conectar ao servidor Nexus.");
+                resetBtn();
+            }
+        });
+
+        function resetBtn() {
+            btn.innerText = "ASSINAR AGORA";
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>
