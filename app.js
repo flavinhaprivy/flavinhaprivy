@@ -1,27 +1,25 @@
 const btn = document.getElementById('btnAssinar');
 const emailInput = document.getElementById('email');
 
-// NOVA URL DO SEU TÚNEL CLOUDFLARE NO WINDOWS
-const URL_WEBHOOK = 'https://yamaha-aruba-translated-politics.trycloudflare.com/webhook/venda';
+// SUA NOVA URL DO N8N CLOUD
+const URL_WEBHOOK = 'https://flavinhaprivy.app.n8n.cloud/webhook-test/venda';
 
 btn.addEventListener('click', async () => {
     const email = emailInput.value.trim();
 
-    // Validação básica de e-mail
     if (!email || !email.includes('@')) {
         alert("Por favor, insira um e-mail válido.");
         emailInput.focus();
         return;
     }
 
-    // Feedback visual
     btn.innerText = "PROCESSANDO...";
     btn.disabled = true;
 
     const dadosVenda = {
         produto: "Assinatura Nexus",
         email: email,
-        origem: "Web_Windows10",
+        origem: "Landing_Page",
         data: new Date().toISOString()
     };
 
@@ -35,22 +33,20 @@ btn.addEventListener('click', async () => {
             body: JSON.stringify(dadosVenda)
         });
 
-        if (!response.ok) throw new Error("O servidor n8n respondeu com erro.");
-
+        // Como você configurou "When Last Node Finishes", o n8n vai esperar todo o fluxo
         const resultado = await response.json();
 
-        // O redirecionamento depende do link enviado pelo seu n8n
         if (resultado.url_checkout) {
             window.location.href = resultado.url_checkout;
         } else {
-            console.error("Resposta do servidor:", resultado);
-            alert("Erro: O n8n não retornou o campo 'url_checkout'.");
+            console.error("Resposta do n8n:", resultado);
+            alert("Erro: O n8n não retornou o campo 'url_checkout'. Verifique o último nó do seu workflow.");
             resetBtn();
         }
 
     } catch (error) {
-        console.error("Erro na integração:", error);
-        alert("Não foi possível conectar ao Nexus. Verifique se o n8n está aberto no seu PC e se o túnel do Cloudflare continua ativo no terminal.");
+        console.error("Erro na conexão:", error);
+        alert("Falha ao conectar com o n8n. Verifique se você clicou em 'Execute Workflow' antes de testar.");
         resetBtn();
     }
 });
