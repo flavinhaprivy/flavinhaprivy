@@ -32,23 +32,24 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
-        h1 { color: var(--primary); font-size: 1.8rem; margin-bottom: 10px; }
+        h1 { color: var(--primary); font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; }
         p { color: var(--text-muted); margin-bottom: 25px; }
         
         .input-group { text-align: left; margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; color: var(--text-main); font-size: 0.9rem; }
         input { 
             width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; 
-            background: #0f172a; color: white; box-sizing: border-box;
+            background: #0f172a; color: white; box-sizing: border-box; outline: none;
         }
+        input:focus { border-color: var(--primary); }
 
         .cta-button { 
             display: inline-block; padding: 16px 32px; background-color: var(--primary); 
             color: var(--bg-deep); border-radius: 8px; font-weight: 800; border: none; 
             cursor: pointer; width: 100%; font-size: 1rem; transition: all 0.3s;
         }
-        .cta-button:hover { transform: translateY(-2px); opacity: 0.9; }
-        .cta-button:disabled { background-color: #64748b; cursor: not-allowed; }
+        .cta-button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .cta-button:disabled { background-color: #64748b; cursor: not-allowed; transform: none; }
         
         footer { margin-top: 30px; font-size: 0.8rem; color: #64748b; }
     </style>
@@ -57,11 +58,11 @@
 
     <div class="container">
         <h1>PLATAFORMA UMPIERRE</h1>
-        <p>Acesso exclusivo aos sistemas Nexus.</p>
+        <p>Acesso exclusivo aos sistemas Nexus e automações.</p>
         
         <div class="input-group">
-            <label for="email">Seu melhor e-mail:</label>
-            <input type="email" id="email" placeholder="exemplo@email.com" required>
+            <label for="email">E-mail para liberação do acesso:</label>
+            <input type="email" id="email" placeholder="seu@email.com" required>
         </div>
 
         <button id="btnAssinar" class="cta-button">ASSINAR AGORA</button>
