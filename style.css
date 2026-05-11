@@ -1,0 +1,38 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+:root { --primary: #4ecca3; --bg-dark: #0f0f1a; --text-dim: #a0a0b8; }
+
+body { 
+    background: radial-gradient(circle at top right, #1a1a2e, var(--bg-dark)); 
+    color: #fff; display: flex; justify-content: center; align-items: center; 
+    min-height: 100vh; padding: 20px; 
+}
+
+.container { width: 100%; max-width: 450px; }
+.glass-card { 
+    background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); 
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 30px; text-align: center; 
+}
+
+.brand { font-weight: 800; letter-spacing: 3px; color: var(--primary); margin-bottom: 20px; }
+.price-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; margin-bottom: 30px; }
+.value { font-size: 3.5rem; font-weight: 800; }
+
+input { 
+    width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); 
+    border-radius: 14px; padding: 16px; color: white; margin-bottom: 20px; outline: none;
+}
+
+button { 
+    width: 100%; background: var(--primary); color: var(--bg-dark); border: none; 
+    border-radius: 14px; padding: 18px; font-weight: 700; cursor: pointer; text-transform: uppercase; 
+}
+
+.pix-display { display: flex; gap: 10px; margin: 20px 0; }
+#pixCode { margin-bottom: 0; font-size: 0.8rem; }
+#btnCopy { width: auto; padding: 0 15px; font-size: 0.7rem; }
+
+@media (max-width: 480px) {
+    .pix-display { flex-direction: column; }
+    #btnCopy { width: 100%; padding: 15px; }
+    .value { font-size: 2.8rem; }
+}
