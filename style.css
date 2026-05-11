@@ -1,41 +1,11 @@
-/* ... Mantenha o que já tínhamos e adicione/ajuste isto: ... */
-
-.plans-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
+/* Adicione estas regras ao seu arquivo style.css existente */
+.plans-container { display: grid; gap: 12px; margin-bottom: 25px; }
 .plan-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 15px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);
+border-radius: 16px; padding: 15px; cursor: pointer; transition: 0.3s;
+display: flex; justify-content: space-between; align-items: center;
 }
-
-.plan-card.active {
-    border-color: #4ecca3;
-    background: rgba(78, 204, 163, 0.1);
-}
-
-.plan-title {
-    font-weight: 700;
-    font-size: 0.9rem;
-}
-
-.plan-price {
-    color: #4ecca3;
-    font-weight: 800;
-}
-
-@media (min-width: 400px) {
-    .plans-container {
-        grid-template-columns: 1fr; /* Mantém lista no mobile para não apertar */
-    }
-}
+.plan-card.active { border-color: #4ecca3; background: rgba(78, 204, 163, 0.1); }
+.plan-title { font-weight: 700; font-size: 0.9rem; color: #fff; }
+.plan-price { color: #4ecca3; font-weight: 800; }
+.pix-display { display: flex; gap: 10px; margin-top: 20px; }
