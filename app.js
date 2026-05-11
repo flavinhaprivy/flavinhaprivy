@@ -6,7 +6,7 @@ const pixCodeInput = document.getElementById('pixCode');
 const btnCopy = document.getElementById('btnCopy');
 const planCards = document.querySelectorAll('.plan-card');
 
-const URL_WEBHOOK = 'https://flavinhaprivy.app.n8n.cloud/webhook-test/venda';
+const URL_WEBHOOK = 'https://temperatures-dealers-exterior-shopper.trycloudflare.com';
 
 // Estado do plano selecionado
 let selectedPlan = null;
