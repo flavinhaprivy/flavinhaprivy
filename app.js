@@ -8,39 +8,26 @@ const planCards = document.querySelectorAll('.plan-card');
 
 const URL_WEBHOOK = 'https://flavinhaprivy.app.n8n.cloud/webhook-test/venda';
 
-// Estado do plano selecionado
 let selectedPlan = null;
 
-// Seleção de plano
 planCards.forEach(card => {
     card.addEventListener('click', () => {
         planCards.forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
-
         selectedPlan = {
             plan: card.dataset.plan,
             price: card.dataset.price,
             label: card.dataset.label
         };
-
         btn.disabled = false;
-        btn.innerText = `GERAR PIX — ${card.dataset.label} R$ ${parseFloat(card.dataset.price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+        btn.innerText = `GERAR PIX — R$ ${parseFloat(card.dataset.price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
     });
 });
 
-// Clique no botão de gerar PIX
 btn.addEventListener('click', async () => {
     const email = emailInput.value.trim();
-
-    if (!email || !email.includes('@')) {
-        alert("Por favor, insira um e-mail válido.");
-        return;
-    }
-
-    if (!selectedPlan) {
-        alert("Selecione um plano antes de continuar.");
-        return;
-    }
+    if (!email || !email.includes('@')) { alert("E-mail inválido."); return; }
+    if (!selectedPlan) { alert("Selecione um plano."); return; }
 
     btn.innerText = "PROCESSANDO...";
     btn.disabled = true;
@@ -61,28 +48,22 @@ btn.addEventListener('click', async () => {
 
         if (res.url_checkout) {
             formArea.style.display = 'none';
-            pixArea.style.display = 'block';
+            pixArea.style.display = 'flex';
             pixCodeInput.value = res.url_checkout;
-
-            try {
-                await navigator.clipboard.writeText(res.url_checkout);
-                alert("✅ PIX GERADO! O código foi copiado automaticamente.");
-            } catch {
-                // clipboard pode falhar em alguns browsers; usuário ainda pode copiar manualmente
-            }
+            try { await navigator.clipboard.writeText(res.url_checkout); } catch {}
+            alert("✅ PIX GERADO! Código copiado automaticamente.");
         } else {
             alert("Não foi possível gerar o PIX. Tente novamente.");
+            btn.innerText = "GERAR PIX";
+            btn.disabled = false;
         }
-
     } catch (e) {
         alert("Erro de conexão com o servidor. Tente novamente.");
-    } finally {
-        btn.innerText = `GERAR PIX — ${selectedPlan.label}`;
+        btn.innerText = "GERAR PIX";
         btn.disabled = false;
     }
 });
 
-// Botão copiar manual
 btnCopy.addEventListener('click', () => {
     pixCodeInput.select();
     document.execCommand('copy');
