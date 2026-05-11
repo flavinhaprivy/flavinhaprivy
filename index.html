@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Privada UMPIERRE</title>
+    <style>
+        :root {
+            --bg-deep: #0f172a;
+            --bg-card: #1e293b;
+            --primary: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background-color: var(--bg-deep); 
+            color: var(--text-main); 
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            text-align: center; 
+        }
+        .container { 
+            max-width: 450px; 
+            padding: 40px; 
+            border: 1px solid #334155; 
+            border-radius: 16px; 
+            background: var(--bg-card); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        h1 { color: var(--primary); font-size: 1.8rem; letter-spacing: -0.025em; margin-bottom: 10px; }
+        p { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
+        .cta-button { 
+            display: inline-block; 
+            padding: 16px 32px; 
+            background-color: var(--primary); 
+            color: var(--bg-deep); 
+            border-radius: 8px; 
+            font-weight: 800; 
+            border: none; 
+            cursor: pointer; 
+            width: 100%; 
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .cta-button:hover { transform: translateY(-2px); opacity: 0.9; }
+        .cta-button:disabled { background-color: #64748b; cursor: not-allowed; }
+        footer { margin-top: 40px; font-size: 0.8rem; color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PLATAFORMA UMPIERRE</h1>
+        <p>Acesso exclusivo aos sistemas Nexus e automações de segurança.</p>
+        
+        <button id="btnAssinar" class="cta-button">ASSINAR AGORA</button>
+
+        <footer>
+            <p>&copy; <span id="year"></span> Eduardo Umpierre - Bagé/RS</p>
+        </footer>
+    </div>
+
+    <script>
+        // 1. Atualiza o ano automaticamente
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const btn = document.getElementById('btnAssinar');
+
+        btn.addEventListener('click', async () => {
+            // Feedback visual imediato
+            btn.innerText = "PROCESSANDO PAGAMENTO...";
+            btn.disabled = true;
+
+            const dadosVenda = {
+                produto: "Assinatura Nexus",
+                origem: "Web_GitHub",
+                data: new Date().toISOString()
+            };
+
+            try {
+                // ENDEREÇO DO SEU TÚNEL NO DEBIAN
+                // Certifique-se que o path /webhook/venda é o mesmo do seu n8n
+                const response = await fetch('https://eight-cameras-lose.loca.lt/webhook/venda', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Bypass-Tunnel-Reminder': 'true' // Tenta pular o aviso do localtunnel
+                    },
+                    mode: 'cors', 
+                    body: JSON.stringify(dadosVenda)
+                });
+
+                if (!response.ok) throw new Error("Servidor não respondeu corretamente.");
+
+                const resultado = await response.json();
+
+                // Redireciona para o Checkout do Nexus (ou link que o n8n gerou)
+                if (resultado.url_checkout) {
+                    window.location.href = resultado.url_checkout;
+                } else {
+                    alert("Erro: Link de checkout não encontrado na resposta.");
+                    resetBtn();
+                }
+
+            } catch (error) {
+                console.error("Erro na integração:", error);
+                alert("Falha na conexão com o servidor Nexus. Verifique se o Debian está online.");
+                resetBtn();
+            }
+        });
+
+        function resetBtn() {
+            btn.innerText = "ASSINAR AGORA";
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>
