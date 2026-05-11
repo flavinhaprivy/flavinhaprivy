@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Plataforma Umpierre | Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,16 +13,35 @@
             <header>
                 <div class="brand">UMPIERRE</div>
                 <h1>Acesso Premium</h1>
-                <p>Assine agora e receba o seu acesso instantaneamente via Pix.</p>
+                <p>Escolha seu plano e receba o acesso no seu Telegram via Pix.</p>
             </header>
 
-            <section class="price-box">
-                <span class="value">R$ 50</span><span class="period">/mês</span>
+            <section class="plans">
+                <div class="plan-card" data-plan="semanal" data-price="19.90" data-label="Semanal">
+                    <div class="plan-badge">TESTE</div>
+                    <div class="plan-name">Semanal</div>
+                    <div class="plan-price"><span class="plan-value">R$ 19,90</span><span class="plan-period">/semana</span></div>
+                    <div class="plan-desc">Acesso completo por 7 dias</div>
+                </div>
+
+                <div class="plan-card popular" data-plan="mensal" data-price="99.90" data-label="Mensal">
+                    <div class="plan-badge">POPULAR</div>
+                    <div class="plan-name">Mensal</div>
+                    <div class="plan-price"><span class="plan-value">R$ 99,90</span><span class="plan-period">/mês</span></div>
+                    <div class="plan-desc">Acesso completo por 30 dias</div>
+                </div>
+
+                <div class="plan-card" data-plan="vitalicio" data-price="399.90" data-label="Vitalício">
+                    <div class="plan-badge">MELHOR CUSTO</div>
+                    <div class="plan-name">Vitalício</div>
+                    <div class="plan-price"><span class="plan-value">R$ 399,90</span><span class="plan-period">/ único</span></div>
+                    <div class="plan-desc">Acesso para sempre, sem renovação</div>
+                </div>
             </section>
 
             <section id="formArea">
                 <input type="email" id="email" placeholder="seu-email@exemplo.com" required>
-                <button id="btnAssinar">GERAR PAGAMENTO PIX</button>
+                <button id="btnAssinar" disabled>SELECIONE UM PLANO</button>
             </section>
 
             <section id="pixArea" style="display: none;">
@@ -31,10 +50,10 @@
                     <input type="text" id="pixCode" readonly>
                     <button id="btnCopy">COPIAR</button>
                 </div>
+                <p class="pix-info">Após o pagamento, você receberá o link do grupo no e-mail cadastrado.</p>
             </section>
         </div>
     </main>
     <script src="app.js"></script>
 </body>
-</html>
 </html>
