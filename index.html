@@ -1,52 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
-user-scalable=no">
-<title>Umpierre VIP | Grupo Telegram</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Plataforma Umpierre | Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="container">
-<div class="glass-card">
-<header>
-<div class="brand">UMPIERRE VIP</div>
-<h1>Escolha seu Plano</h1>
-<p>Garanta sua vaga no grupo VIP do Telegram.</p>
-</header>
-<div class="plans-container">
-<div class="plan-card active" data-price="19.90" data-name="SEMANAL">
-<span class="plan-title">SEMANAL</span>
-<span class="plan-price">R$ 19,90</span>
-</div>
-<div class="plan-card" data-price="99.90" data-name="MENSAL">
-<span class="plan-title">MENSAL</span>
-<span class="plan-price">R$ 99,90</span>
-</div>
-<div class="plan-card" data-price="399.90" data-name="VITALICIO">
-<span class="plan-title">VITALÍCIO</span>
-<span class="plan-price">R$ 399,90</span>
-</div>
-</div>
-<section id="formArea">
-<input type="email" id="email" placeholder="seu-email@exemplo.com" required>
-<button id="btnAssinar">GERAR PIX DE ACESSO</button>
-</section>
-<section id="pixArea" style="display: none;">
-<p> Pix Copia e Cola gerado!</p>
-<div class="pix-display">
-<input type="text" id="pixCode" readonly>
-<button id="btnCopy">COPIAR</button>
-</div>
-<p style="font-size: 0.8rem; margin-top: 15px;">O link do Telegram será enviado
-após o pagamento.</p>
-</section>
-</div>
-</main>
+    <main class="container">
+        <div class="glass-card">
+            <header>
+                <div class="brand">UMPIERRE</div>
+                <h1>Acesso Premium</h1>
+                <p>Assine agora e receba o seu acesso instantaneamente via Pix.</p>
+            </header>
 
-<script src="app.js"></script>
+            <section class="price-box">
+                <span class="value">R$ 50</span><span class="period">/mês</span>
+            </section>
+
+            <section id="formArea">
+                <input type="email" id="email" placeholder="seu-email@exemplo.com" required>
+                <button id="btnAssinar">GERAR PAGAMENTO PIX</button>
+            </section>
+
+            <section id="pixArea" style="display: none;">
+                <p>✅ Pix Copia e Cola gerado!</p>
+                <div class="pix-display">
+                    <input type="text" id="pixCode" readonly>
+                    <button id="btnCopy">COPIAR</button>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="app.js"></script>
 </body>
+</html>
 </html>
