@@ -1,37 +1,56 @@
 const btn = document.getElementById('btnAssinar');
+const emailInput = document.getElementById('email');
+
+// ATENÇÃO: Substitua pela URL atual gerada no seu Debian
+const URL_WEBHOOK = 'https://eight-cameras-lose.loca.lt/webhook/venda';
 
 btn.addEventListener('click', async () => {
+    const email = emailInput.value;
+
+    // Validação simples
+    if (!email || !email.includes('@')) {
+        alert("Por favor, insira um e-mail válido.");
+        return;
+    }
+
+    // Feedback visual
     btn.innerText = "PROCESSANDO PAGAMENTO...";
     btn.disabled = true;
 
+    const dadosVenda = {
+        produto: "Assinatura Nexus",
+        email: email,
+        origem: "Web_GitHub",
+        data: new Date().toISOString()
+    };
+
     try {
-        const response = await fetch('https://flavinhaprivy.app.n8n.cloud/webhook-test/venda', {
-            method: 'POST', // Precisa ser IGUAL ao que está no n8n
+        const response = await fetch(URL_WEBHOOK, {
+            method: 'POST',
             headers: { 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Bypass-Tunnel-Reminder': 'true' 
             },
             mode: 'cors', 
-            body: JSON.stringify({
-                produto: "Assinatura Nexus",
-                origem: "GitHub_Pages"
-            })
+            body: JSON.stringify(dadosVenda)
         });
 
-        if (!response.ok) throw new Error("Erro no n8n Cloud");
+        if (!response.ok) throw new Error("Servidor offline ou erro no n8n.");
 
         const resultado = await response.json();
 
-        // O n8n precisa devolver um objeto com "url_checkout"
+        // O n8n precisa retornar um JSON com a chave "url_checkout"
         if (resultado.url_checkout) {
             window.location.href = resultado.url_checkout;
         } else {
-            alert("O n8n recebeu o clique, mas o seu fluxo ainda não devolveu o link de checkout.");
+            console.error("Resposta do servidor:", resultado);
+            alert("Erro: O servidor n8n não enviou o link de checkout.");
             resetBtn();
         }
 
     } catch (error) {
-        console.error("Erro:", error);
-        alert("Falha na conexão com o n8n Cloud. Verifique se clicou no botão laranja 'Ouça para o evento de teste'.");
+        console.error("Erro na conexão:", error);
+        alert("Não foi possível conectar ao Nexus. Verifique se o túnel no Debian está ativo.");
         resetBtn();
     }
 });
