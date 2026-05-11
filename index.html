@@ -4,32 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma Umpierre | Acesso Premium</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="hero">
+
+    <div class="background-animate"></div>
+
+    <main class="container">
         <div class="glass-card">
-            <div class="logo">UMPIERRE</div>
-            <h1>Acesso à Plataforma Premium</h1>
-            <p>Garanta sua assinatura agora e libere todas as ferramentas de automação e segurança.</p>
-            
-            <div class="price-tag">
-                <span>Apenas</span>
-                <div class="price">R$ 50,00</div>
-                <span>por mês</span>
-            </div>
+            <header>
+                <div class="brand">UMPIERRE</div>
+                <h1>Desbloqueie seu Acesso Premium</h1>
+                <p>Entre para a elite da automação. Assine agora e receba seu acesso instantaneamente via Pix.</p>
+            </header>
 
-            <div class="input-group">
-                <input type="email" id="email" placeholder="Digite seu e-mail para começar">
-                <button id="btnAssinar">ASSINAR AGORA</button>
-            </div>
+            <section class="pricing">
+                <div class="price-box">
+                    <span class="currency">R$</span>
+                    <span class="value">50</span>
+                    <span class="period">/mês</span>
+                </div>
+            </section>
 
-            <div class="features">
-                <div class="feature">✅ Ativação Imediata via Pix</div>
-                <div class="feature">✅ Suporte 24h</div>
-                <div class="feature">✅ Acesso Total</div>
-            </div>
+            <section class="form-area" id="formArea">
+                <div class="input-group">
+                    <label for="email">E-mail de Cadastro</label>
+                    <input type="email" id="email" placeholder="exemplo@email.com" required>
+                </div>
+                <button id="btnAssinar">GERAR PAGAMENTO PIX</button>
+            </section>
+
+            <section class="pix-area" id="pixArea" style="display: none;">
+                <p class="pix-instruction">Copia e Cola gerado com sucesso!</p>
+                <div class="pix-display">
+                    <input type="text" id="pixCode" readonly>
+                    <button id="btnCopy">COPIAR</button>
+                </div>
+                <p class="pix-footer">Abra o app do seu banco e escolha "Pix Copia e Cola".</p>
+            </section>
+
+            <footer class="benefits">
+                <span>🛡️ Pagamento Seguro</span>
+                <span>⚡ Ativação Imediata</span>
+            </footer>
         </div>
     </main>
 
